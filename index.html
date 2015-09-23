@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SMS Sort and Filter</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/slate/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <script src="app.js"></script>
+
+</head>
+<body>
+    <div class="container" ng-app="sortApp" ng-controller="mainController">
+
+        <div class="alert alert-info">
+            <h3>SMS Sort and Filter</h3>
+            <p>SMS Sort and Filter combines Angular.js, Bootstrap, and Font Awesome to make a user accessible and intuitive way to explore text messages.</p>
+            <p>Thanks to cipsum.com, nietzsche-ipsum.com, officeipsum.com, and metaphorpsum.com for message text. </p>
+        </div>
+
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search Contact" ng-model="searchContact_name">
+                    <div class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </div>
+
+                    <select class="form-control" placeholder="Select Type" ng-model="searchType">
+                        <option value="">All Types</option>
+                        <option>Sent</option>
+                        <option>Received</option>
+                        <option>Draft</option>
+                    </select>
+                    <div class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    
+                    <input type="text" class="form-control" placeholder="Search Message" ng-model="searchBody">
+                    <div class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search Date" ng-model="searchDate">
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-bordered table-striped">
+
+            <thead>
+                <tr>
+                    <td>
+                        <a href="#" ng-click="sortType = 'contact_name'; sortReverse = !sortReverse">
+                            Contact
+                            <span ng-show="sortType == 'contact_name' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'contact_name' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" ng-click="sortType = 'type'; sortReverse = !sortReverse">
+                            Type
+                            <span ng-show="sortType == 'type' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'type' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" ng-click="sortType = 'body'; sortReverse = !sortReverse">
+                            Message
+                            <span ng-show="sortType == 'body' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'body' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" ng-click="sortType = 'date'; sortReverse = !sortReverse">
+                            Date
+                            <span ng-show="sortType == 'date' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'date' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="sms in smses | orderBy:sortType:sortReverse | filter:{contact_name: searchContact_name, type: searchType, body: searchBody, readable_date: searchDate} | limitTo:500">
+                    <td>{{ sms.contact_name}} </td>
+                    <td>{{ sms.type }} </td>
+                    <td>{{ sms.body }}</td>
+                    <td>{{ sms.readable_date }}</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+</body>
+</html>
