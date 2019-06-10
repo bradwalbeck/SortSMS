@@ -1,6 +1,18 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+        #gear {
+            position: absolute;
+            opacity: 0.05;
+            left: -15%;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>Sort SMS</title>
     <link rel="shortcut icon" href="favicon.png">
@@ -8,14 +20,16 @@
     <link rel="stylesheet" href="./styles/fontawesome/css/font-awesome.min.css">
     <script src="./js/angular.min.js"></script>
     <script src="./js/app.js"></script>
-
 </head>
-<body style="padding-top: 50px;">
+
+<body>
+    <img src="./logowhite.svg" id="gear" />
     <div class="container" ng-app="sortApp" ng-controller="mainController">
         <div class="alert alert-info">
-            <h1>SMS Sort</h1>
-            <h4>SMS Sort is a demo that combines AngularJS v1.2.23, Bootstrap v3.3.4, and Font Awesome v4.7.0 to make a user accessible and locally contained way to explore SMS messages.</h4>
-            <p>Thanks to cipsum.com, nietzsche-ipsum.com, officeipsum.com, and metaphorpsum.com for message text. </p>
+            <h1>Sort SMS</h1>
+            <h4>Sort SMS combines AngularJS v1.2.23, Bootstrap v3.3.4, and Font Awesome v4.7.0 to demonstrate an
+                entirely localized interface for exploring SMS messages.</h4>
+            <p>Thanks to cipsum.com, nietzsche-ipsum.com, officeipsum.com, and metaphorpsum.com for message text. ©</p>
         </div>
 
         <form>
@@ -38,7 +52,7 @@
                     <div class="input-group-addon">
                         <i class="fa fa-search"></i>
                     </div>
-                    
+
                     <input type="text" class="form-control" placeholder="Search Message" ng-model="searchBody">
                     <div class="input-group-addon">
                         <i class="fa fa-search"></i>
@@ -84,7 +98,8 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="sms in smses | orderBy:sortType:sortReverse | filter:{contact_name: searchContact_name, type: searchType, body: searchBody, readable_date: searchDate} | limitTo:500">
+                <tr
+                    ng-repeat="sms in smses | orderBy:sortType:sortReverse | filter:{contact_name: searchContact_name, type: searchType, body: searchBody, readable_date: searchDate} | limitTo:500">
                     <td>{{ sms.contact_name}} </td>
                     <td>{{ sms.type }} </td>
                     <td>{{ sms.body }}</td>
@@ -96,4 +111,5 @@
 
     </div>
 </body>
+
 </html>
